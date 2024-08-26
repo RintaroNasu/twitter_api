@@ -1,7 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   def index
-    @posts = Post.all
-    render json: @posts
+    @posts = Post.includes(:user).all
+    render json: @posts.to_json(include: :user)
   end
 
   def search
@@ -23,7 +23,8 @@ class Api::V1::PostsController < ApplicationController
 
   def create
     @post = Post.new(posts_params)
-    if @post.save
+    @post.user = User.find_by(user_id: params[:user_id])
+    if @post.save!
       render json: @post, status: :created
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -47,6 +48,6 @@ class Api::V1::PostsController < ApplicationController
 
   private 
     def posts_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :user_id)
     end
 end
