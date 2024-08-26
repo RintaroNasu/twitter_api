@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_074451) do
     t.string "provider", null: false
     t.string "name", null: false
     t.string "email", null: false
-    t.string "accountId", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
