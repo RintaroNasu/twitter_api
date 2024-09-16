@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       end
       get 'auth/:provider/callback', to: 'users#create'
       post 'auth/:provider/callback', to: 'users#create'
+      get 'users/:id/posts', to: 'users#index'
     end
   end
 end
